@@ -3,7 +3,7 @@ import DataTable from 'react-data-table-component';
 import { FaFilter } from 'react-icons/fa';
 import { CSVLink } from 'react-csv';
 
-export default function Product() {
+export default function Dashboard() {
 	const columns = [
 		{
 			name: 'Username',

@@ -1,5 +1,5 @@
 import React from 'react';
-import Product from './component/Product';
+import Dashboard from './component/Dashboard';
 export default function App() {
 	return (
 		<React.Fragment>
@@ -8,7 +8,7 @@ export default function App() {
 				<div className='container'>
 					<div className='row'>
 						<div className='col-md-12'>
-							<Product />
+							<Dashboard />
 						</div>
 					</div>
 				</div>
