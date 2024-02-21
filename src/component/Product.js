@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import DataTable from 'react-data-table-component';
 import { FaFilter } from 'react-icons/fa';
 
@@ -34,6 +34,7 @@ export default function Product() {
 	const [search, setSearch] = useState('');
 	const [filter, setFilter] = useState([]);
 	const [showOptions, setShowOptions] = useState(false);
+	const optionsRef = useRef(null);
 
 	const fetchData = async () => {
 		try {
@@ -50,6 +51,20 @@ export default function Product() {
 
 	useEffect(() => {
 		fetchData();
+	}, []);
+
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (optionsRef.current && !optionsRef.current.contains(event.target)) {
+				setShowOptions(false);
+			}
+		};
+
+		document.addEventListener('click', handleClickOutside);
+
+		return () => {
+			document.removeEventListener('click', handleClickOutside);
+		};
 	}, []);
 
 	const handleFilterByZone = () => {
@@ -92,7 +107,7 @@ export default function Product() {
 					value={search}
 					onChange={(e) => setSearch(e.target.value)}
 				/>
-				<div className='relative'>
+				<div className='relative' ref={optionsRef}>
 					<button className='ml-2' onClick={toggleOptions}>
 						<FaFilter className='cursor-pointer' size={20} />
 					</button>
