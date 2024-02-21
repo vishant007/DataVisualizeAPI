@@ -1,20 +1,18 @@
 import React from 'react';
 import Product from './component/Product';
-export default function App() {   
-   return (
-    <React.Fragment>
-    <div className="App">  
-    <h1 className='mt-3'>React Datatable Component</h1>  
-    <div className='container'>
-      <div className='row'>
-        <div className='col-md-12'>
-         <Product/>
-        </div>
-      </div>
-    </div>
-     
-    </div>
-    </React.Fragment>
-  );
+export default function App() {
+	return (
+		<React.Fragment>
+			<div className='App'>
+				<h1 className='mt-3 m-5'>Data Visualization Dashboard</h1>
+				<div className='container'>
+					<div className='row'>
+						<div className='col-md-12'>
+							<Product />
+						</div>
+					</div>
+				</div>
+			</div>
+		</React.Fragment>
+	);
 }
-

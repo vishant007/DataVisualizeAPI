@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
+import { FaFilter } from 'react-icons/fa';
 
 export default function Product() {
 	const columns = [
@@ -32,6 +33,7 @@ export default function Product() {
 	const [data, setData] = useState([]);
 	const [search, setSearch] = useState('');
 	const [filter, setFilter] = useState([]);
+	const [showOptions, setShowOptions] = useState(false);
 
 	const fetchData = async () => {
 		try {
@@ -50,17 +52,24 @@ export default function Product() {
 		fetchData();
 	}, []);
 
-	useEffect(() => {
-		const result = data.filter((item) =>
-			item.username.toLowerCase().includes(search.toLowerCase())
-		);
-		setFilter(result);
-	}, [search, data]);
+	const handleFilterByZone = () => {
+		// Sorting the data by zone
+		const sortedData = [...data].sort((a, b) => a.zone.localeCompare(b.zone));
+		setFilter(sortedData);
+		setShowOptions(false); // Close the options after clicking
+	};
 
-	const handleDelete = (id) => {
-		const newData = data.filter((item) => item.id !== id);
-		setData(newData);
-		setFilter(newData);
+	const handleFilterByBrand = () => {
+		// Sorting the data by brand
+		const sortedData = [...data].sort((a, b) =>
+			a.device_brand.localeCompare(b.device_brand)
+		);
+		setFilter(sortedData);
+		setShowOptions(false); // Close the options after clicking
+	};
+
+	const toggleOptions = () => {
+		setShowOptions(!showOptions);
 	};
 
 	const tableHeaderStyle = {
@@ -75,27 +84,48 @@ export default function Product() {
 
 	return (
 		<div>
-			<h1>User Data</h1>
+			<div className='flex items-center justify-between mb-2'>
+				<input
+					type='text'
+					className='w-full sm:w-64 p-2 border border-gray-300 rounded-md'
+					placeholder='Search...'
+					value={search}
+					onChange={(e) => setSearch(e.target.value)}
+				/>
+				<div className='relative'>
+					<button className='ml-2' onClick={toggleOptions}>
+						<FaFilter className='cursor-pointer' size={20} />
+					</button>
+					{showOptions && (
+						<div className='fixed z-10  right-0 mt-2 sm:mt-0 sm:ml-2 bg-white border border-gray-300 rounded-md shadow-md'>
+							<button
+								onClick={handleFilterByZone}
+								className='block px-4 py-2 hover:bg-gray-100  '
+							>
+								Filter by Zone
+							</button>
+							<button
+								onClick={handleFilterByBrand}
+								className='block px-4 py-2 hover:bg-gray-100  '
+							>
+								Filter by Device
+							</button>
+						</div>
+					)}
+				</div>
+			</div>
 			<DataTable
 				customStyles={tableHeaderStyle}
 				columns={columns}
 				data={filter}
 				pagination
-				selectableRows
 				fixedHeader
 				selectableRowsHighlight
+				// actions={<button className='btn btn-success'>Export CSV</button>}
 				highlightOnHover
 				subHeader
-				subHeaderComponent={
-					<input
-						type='text'
-						className='w-25 form-control'
-						placeholder='Search...'
-						value={search}
-						onChange={(e) => setSearch(e.target.value)}
-					/>
-				}
-				subHeaderAlign='right'
+				subHeaderAlign='left'
+				responsive={true}
 			/>
 		</div>
 	);
