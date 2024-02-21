@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import DataTable from 'react-data-table-component';
 import { FaFilter } from 'react-icons/fa';
+import { CSVLink } from 'react-csv';
 
 export default function Product() {
 	const columns = [
@@ -142,6 +143,11 @@ export default function Product() {
 				subHeaderAlign='left'
 				responsive={true}
 			/>
+			<div>
+				<CSVLink data={filter} filename='data.csv'>
+					<button className='btn btn-success'>Export CSV</button>
+				</CSVLink>
+			</div>
 		</div>
 	);
 }
