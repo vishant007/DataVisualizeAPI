@@ -225,6 +225,16 @@ export default function Dashboard() {
 		});
 		return maxCount;
 	};
+	useEffect(() => {
+		if (search.trim() === '') {
+			setFilter(data);
+		} else {
+			const filteredData = data.filter((item) =>
+				item.username.toLowerCase().includes(search.toLowerCase())
+			);
+			setFilter(filteredData);
+		}
+	}, [search, data]);
 
 	return (
 		<div>
