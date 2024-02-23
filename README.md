@@ -11,6 +11,10 @@
 
 ## Tech-Stack:
 -  Axios, React, Tailwind-CSS, Charts.js, React-table, React-dom, React-icons
+  
+## Demo:
+
+https://github.com/vishant007/altorsmartmobility-assignment/assets/64253459/e7aa9c24-22b7-4f12-a7ee-e7f4b4384252
 
 ## Steps To Run:
 
